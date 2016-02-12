@@ -6,9 +6,6 @@ var http = require('http');
 var path = require('path');
 var dbUrl = process.env.MONGOHQ_URL || 'mongodb://localhost:27017/fleet';
 
-//global variables
-staticFilePath = __dirname + '/public/';
-
 //mongoose
 var mongoose = require('mongoose');
 mongoose.connect(dbUrl, {safe: true});
