@@ -70,7 +70,7 @@ app.post('/api/users', function(req, res) {
 			var newUser = new models.User();
 			newUser.email = req.body.email;
 			newUser.uuid = uuident.v4();
-			newUser.fb_token = req.body.token;
+			newUser.fb_token = req.body.fb_token;
 
 			if (newUser.email && newUser.uuid && newUser.fb_token) {
 				newUser.save(function(err){
@@ -101,7 +101,7 @@ app.post('/api/authenticate', function(req, res) {
 			res.json({ success: false, message: 'Authentication failed. User not found' });
 		}
 		else {
-			if (user.fb_token == req.body.token) {
+			if (user.fb_token == req.body.fb_token) {
 				var token = jwt.sign(user, app.get('secret'), {
 					expiresInMinutes: 1440 // expires in 24 hours
 				});
