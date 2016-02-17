@@ -3,10 +3,11 @@ var bcrypt = require('bcrypt')
 
 var userSchema = new mongoose.Schema({
 	uuid: String,
-	fb_id: String,
+	fb_token: String,
 	created_at: Date,
 	updated_at: Date,
 	username: String,
+  email: String,
 });
 
 userSchema.pre('save', function(next){

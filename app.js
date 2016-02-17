@@ -59,12 +59,65 @@ else if ('production' == app.get('env')) {
 
 //signup route
 app.post('/api/users', function(req, res) {
+	models.User.findOne({
+		email: req.body.email
+	}, function(err, user) {
+		if (err) throw err;
+		if (user) {
+			res.json({ success: false, message: 'Signup failed! User with given email already exists' });
+		}
+		else {
+			var newUser = new models.User();
+			newUser.email = req.body.email;
+			newUser.uuid = uuident.v4();
+			newUser.fb_token = req.body.token;
 
+			if (newUser.email && newUser.uuid && newUser.fb_token) {
+				newUser.save(function(err){
+					if (err) throw err;
+					res.json({
+						success: true,
+						message: 'User successfully created!',
+					});
+				});
+			}
+			else {
+				res.json({
+					success: false,
+					message: 'Failed to generate new user. At least one field is missing',
+				});
+			}
+		}
+	});
 });
 
 //authenticate
 app.post('/api/authenticate', function(req, res) {
-
+	models.User.findOne({
+		email: req.body.email
+	}, function(err, user) {
+		if (err) throw err;
+		if (!user) {
+			res.json({ success: false, message: 'Authentication failed. User not found' });
+		}
+		else {
+			if (user.fb_token == req.body.token) {
+				var token = jwt.sign(user, app.get('secret'), {
+					expiresInMinutes: 1440 // expires in 24 hours
+				});
+				res.json({
+					success: true,
+					message: 'Token successfully generated!',
+					uuid: user.uuid,
+					email: user.email,
+					token: token
+				});
+			}
+			else {
+				res.json({ success: false, message: 'Authentication failed. Wrong FB token.' });
+			}
+		}
+	});
 });
 
 //add authentication middleware middleware -- NEEDS TO BE AFTER api/authenticate
@@ -90,7 +143,8 @@ app.all('/api/*', function(req, res, next) {
 	}
 });
 
-//API routes
+//User API routes
+
 
 //catch-all error 404 response
 app.all('*', function(req, res) {
