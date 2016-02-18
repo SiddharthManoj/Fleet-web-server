@@ -2,8 +2,14 @@
 var express = require('express');
 var models = require('./models');
 var routes = require('./routes');
-var http = require('http');
+var fs = require('fs');
+var https = require('https');
 var path = require('path');
+
+var privateKey  = fs.readFileSync('sslcert/key.pem');
+var certificate = fs.readFileSync('sslcert/cert.pem');
+var credentials = {key: privateKey, cert: certificate};
+
 var dbUrl = process.env.MONGOHQ_URL || 'mongodb://localhost:27017/fleet';
 
 //mongoose
@@ -98,7 +104,7 @@ app.post('/api/authenticate', function(req, res) {
 	}, function(err, user) {
 		if (err) throw err;
 		if (!user) {
-			res.json({ success: false, message: 'Authentication failed. User not found' });
+			res.json({ success: false, exists: false, message: 'Authentication failed. User not found' });
 		}
 		else {
 			if (user.fb_token == req.body.fb_token) {
@@ -152,7 +158,7 @@ app.all('*', function(req, res) {
 });
 
 //start server
-var server = http.createServer(app);
+var server = https.createServer(credentials, app);
 var boot = function() {
 	server.listen(app.get('port'), function() {
 		console.info('Express server listening on port ' + app.get('port'));
