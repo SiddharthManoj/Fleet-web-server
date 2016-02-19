@@ -2,14 +2,8 @@
 var express = require('express');
 var models = require('./models');
 var routes = require('./routes');
-var fs = require('fs');
-var https = require('https');
+var http = require('http');
 var path = require('path');
-
-var privateKey  = fs.readFileSync('sslcert/key.pem');
-var certificate = fs.readFileSync('sslcert/cert.pem');
-var credentials = {key: privateKey, cert: certificate};
-
 var dbUrl = process.env.MONGOHQ_URL || 'mongodb://localhost:27017/fleet';
 
 //mongoose
@@ -158,7 +152,7 @@ app.all('*', function(req, res) {
 });
 
 //start server
-var server = https.createServer(credentials, app);
+var server = http.createServer(app);
 var boot = function() {
 	server.listen(app.get('port'), function() {
 		console.info('Express server listening on port ' + app.get('port'));
@@ -186,5 +180,5 @@ process.on('uncaughtException', function(err) {
 	console.error('uncaughtException: ', err.message);
 	console.error(err.stack);
 	process.exit(1);
-});     
+});
 
