@@ -64,15 +64,16 @@ app.post('/api/users', function(req, res) {
 	}, function(err, user) {
 		if (err) throw err;
 		if (user) {
+			console.log("user exists");
 			res.json({ success: false, message: 'Signup failed! User with given email already exists' });
 		}
 		else {
 			var newUser = new models.User();
 			newUser.email = req.body.email;
+			newUser.username = req.body.username;
 			newUser.uuid = uuident.v4();
-			newUser.fb_token = req.body.fb_token;
 
-			if (newUser.email && newUser.uuid && newUser.fb_token) {
+			if (newUser.email && newUser.uuid) {
 				newUser.save(function(err){
 					if (err) throw err;
 					res.json({
@@ -101,21 +102,17 @@ app.post('/api/authenticate', function(req, res) {
 			res.json({ success: false, exists: false, message: 'Authentication failed. User not found' });
 		}
 		else {
-			if (user.fb_token == req.body.fb_token) {
-				var token = jwt.sign(user, app.get('secret'), {
-					expiresInMinutes: 1440 // expires in 24 hours
-				});
-				res.json({
-					success: true,
-					message: 'Token successfully generated!',
-					uuid: user.uuid,
-					email: user.email,
-					token: token
-				});
-			}
-			else {
-				res.json({ success: false, message: 'Authentication failed. Wrong FB token.' });
-			}
+			//NEED TO CHECK IF req.fb_token IS VALID BEFORE SENDING THIS TOKEN BACK
+			var token = jwt.sign(user, app.get('secret'), {
+				expiresInMinutes: 1440 // expires in 24 hours
+			});
+			res.json({
+				success: true,
+				message: 'Token successfully generated!',
+				uuid: user.uuid,
+				email: user.email,
+				token: token
+			});
 		}
 	});
 });
