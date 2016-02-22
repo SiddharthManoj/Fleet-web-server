@@ -111,6 +111,7 @@ app.post('/api/authenticate', function(req, res) {
 				message: 'Token successfully generated!',
 				uuid: user.uuid,
 				email: user.email,
+				username: user.username,
 				token: token
 			});
 		}
