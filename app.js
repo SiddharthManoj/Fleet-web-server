@@ -73,7 +73,7 @@ app.post('/api/users', function(req, res) {
 			newUser.username = req.body.username;
 			newUser.uuid = uuident.v4();
 
-			if (newUser.email && newUser.uuid) {
+			if (newUser.email && newUser.uuid && newUser.username) {
 				newUser.save(function(err){
 					if (err) throw err;
 					res.json({
