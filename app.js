@@ -142,7 +142,7 @@ app.all('/api/*', function(req, res, next) {
 });
 
 //User API routes
-
+app.get('/api/users/:uuid', routes.userAPI.getUser);
 
 //catch-all error 404 response
 app.all('*', function(req, res) {
