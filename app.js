@@ -3,9 +3,9 @@ var express = require('express');
 var models = require('./models');
 var routes = require('./routes');
 var http = require('http');
+var request = require("request");
 var path = require('path');
 var dbUrl = process.env.MONGOHQ_URL || 'mongodb://localhost:27017/fleet';
-
 //mongoose
 var mongoose = require('mongoose');
 mongoose.connect(dbUrl, {safe: true});
@@ -102,17 +102,25 @@ app.post('/api/authenticate', function(req, res) {
 			res.json({ success: false, exists: false, message: 'Authentication failed. User not found' });
 		}
 		else {
-			//NEED TO CHECK IF req.fb_token IS VALID BEFORE SENDING THIS TOKEN BACK
-			var token = jwt.sign(user, app.get('secret'), {
-				expiresInMinutes: 1440 // expires in 24 hours
-			});
-			res.json({
-				success: true,
-				message: 'Token successfully generated!',
-				uuid: user.uuid,
-				email: user.email,
-				username: user.username,
-				token: token
+			var url = 'https://graph.facebook.com/me?access_token=' + req.body.fb_token;
+			request(url, function(error, response, body) {
+				console.log(error);
+				if(!error){
+					var token = jwt.sign(user, app.get('secret'), {
+					expiresInMinutes: 1440 // expires in 24 hours
+					});
+					res.json({
+						success: true,
+						message: 'Token successfully generated!',
+						uuid: user.uuid,
+						email: user.email,
+						username: user.username,
+						token: token
+					});
+				}
+				else{
+					throw error;
+				}
 			});
 		}
 	});
