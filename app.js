@@ -29,7 +29,7 @@ app.locals.appTitle = 'Fleet';
 
 //middleware that exposes Mongoose models in each Express.js route via a req object
 app.use(function(req, res, next) {
-	if (!models.User && !models.Video) return next(new Error('No models.'));
+	if (!models.User || !models.Video) return next(new Error('One or more models is missing.'));
 	req.models = models;
 	return next();
 });
