@@ -104,7 +104,6 @@ app.post('/api/authenticate', function(req, res) {
 		else {
 			var url = 'https://graph.facebook.com/me?access_token=' + req.body.fb_token;
 			request(url, function(error, response, body) {
-				console.log(error);
 				if(!error){
 					var token = jwt.sign(user, app.get('secret'), {
 					expiresInMinutes: 1440 // expires in 24 hours
