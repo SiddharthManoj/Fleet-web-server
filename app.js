@@ -71,9 +71,9 @@ app.post('/api/users', function(req, res) {
 			var newUser = new models.User();
 			newUser.email = req.body.email;
 			newUser.username = req.body.username;
-			newUser.uuid = uuident.v4();
+			newUser._id = uuident.v4();
 
-			if (newUser.email && newUser.uuid && newUser.username) {
+			if (newUser.email && newUser._id && newUser.username) {
 				newUser.save(function(err){
 					if (err) throw err;
 					res.json({
@@ -112,7 +112,7 @@ app.post('/api/authenticate', function(req, res) {
 					res.json({
 						success: true,
 						message: 'Token successfully generated!',
-						uuid: user.uuid,
+						uuid: user._id,
 						email: user.email,
 						username: user.username,
 						token: token
