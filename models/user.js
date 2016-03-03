@@ -5,7 +5,7 @@ var bcrypt = require('bcrypt')
 var userSchema = new Schema();
 
 userSchema.add({
-	uuid: String,
+	_id: String,
 	created_at: Date,
 	updated_at: Date,
 	username: String,

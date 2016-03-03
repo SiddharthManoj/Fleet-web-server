@@ -1,8 +1,6 @@
 //GET a specific user
 exports.getUser = function(req, res) {
-	req.models.User.findOne( {
-		uuid: req.params.uuid
-	}, function(err, user) {
+	req.models.User.findById(req.params.uuid, function(err, user) {
 		if (err) throw err;
 		if (!user) {
 			res.json({ success: false, message: 'Get failed! User not found.' });
@@ -22,83 +20,89 @@ exports.getUser = function(req, res) {
 	});
 }
 
-//POST add new user
-exports.addUser = function(req, res) {
-	var user = new req.models.User(req.body);
-	user.save(function(err) {
-		if (err) return next (err);
-		res.json(user);
-	});
-};
-
 //PUT update user
 exports.updateUser = function(req, res) {
-	var user = req.body;
-	req.db.User.findByIdAndUpdate(req.params.uuid, {
-		$set: user
-	}, {
-		new: true
-	}, function(err, user) {
-		if (err) return next (err);
-		res.status(200).json(user);
-	})
+	req.models.User.findById(req.params.uuid, function(err, user) {
+		if (err) throw err;
+		if (!user) {
+			res.json({ success: false, message: 'Updated failed! User not found.' });
+		}
+		else {
+			if (req.body.username) {
+				user.username = req.body.username;
+			}
+			res.json({
+				success: true,
+				message: 'User successfully found and updated!',
+			});
+		}
+	});
 };
 
 //DELETE remove user
 exports.deleteUser = function(req, res) {
 	req.models.User.findByIdAndRemove(req.params.uuid, function(err, user){
-		if (err) next (err);
-		res.status(200).json(user);
+		if (err) throw err;
+		if (!user) {
+			res.json({ success: false, message: 'Delete failed! User not found.' });
+		}
+		else {
+			res.json({
+				success: true,
+				message: 'User successfully deleted!',
+			});
+		}
 	});
 };
 
-/*
-//POST authenticate
-exports.authenticateUser = function(req, res) {
-
-};
-*/
-
 //GET list of videos uploaded
 exports.getUploadedVideos = function(req, res) {
-	req.models.User.findOne( {
-		uuid: req.params.uuid
-	}, function(err, user) {
+	req.models.User.findById( req.params.uuid, function(err, user) {
 		if (err) throw err;
 		if (!user) {
-			res.json({ success: false, message: 'User not found!' });
+			res.json({ success: false, message: 'Get uploaded videos failed. User not found' });
 		}
 		else {
-			var uploadedVideos = user.upvoted_videos_arr;
-			res.json({
-				success: true,
-				message: 'Uploaded videos found!',
-				vids: uploadedVideos
-			});
+			var uploadedVideos = user.uploaded_videos_arr;
+			if (uploadedVideos) {
+				res.json({
+					success: true,
+					message: 'Uploaded videos found!',
+					vids: uploadedVideos
+				});
+			}
+			else {
+				res.json({
+					success: false,
+					message: 'Uploaded videos not found!',
+				});
+			}
 		}
 	});
 };
 
 //GET list of videos upvoted
 exports.getUpvotedVideos = function(req, res) {
-	req.models.User.findOne( {
-		uuid: req.params.uuid
-	}, function(err, user) {
+	req.models.User.findById( req.params.uuid, function(err, user) {
 		if (err) throw err;
 		if (!user) {
-			res.json({ success: false, message: 'User not found!' });
+			res.json({ success: false, message: 'Get upvoted videos failed. User not found' });
 		}
 		else {
-			var upvotedVideos = user.my_videos_arr;
-			res.json({
-				success: true,
-				message: 'Upvoted videos found!',
-				vids: uploadedVideos
-			});
+			var upvotedVideos = user.upvoted_videos_arr;
+			if (upvotedVideos) {
+				res.json({
+					success: true,
+					message: 'Upvoted videos found!',
+					vids: upvotedVideos
+				});
+			}
+			else {
+				res.json({
+					success: false,
+					message: 'Upvoted videos not found!',
+				});
+			}
 		}
 	});
 };
-
-
-
-

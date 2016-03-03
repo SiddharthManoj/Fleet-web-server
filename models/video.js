@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt')
 
 var videoSchema = new Schema();
 videoSchema.add({
-	uuid: String,
+	_id: String,
 	created_at: Date,
 	updated_at: Date,
 	title: String,

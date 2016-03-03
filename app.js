@@ -151,10 +151,8 @@ app.all('/api/*', function(req, res, next) {
 
 //User API routes
 app.get('/api/users/:uuid', routes.userAPI.getUser);
-app.post('/api/users', routes.userAPI.addUser);
 app.put('/api/users/:uuid', routes.userAPI.updateUser);
 app.delete('/api/users/:uuid', routes.userAPI.deleteUser);
-//app.post('/api/authenticate', routes.userAPI.authenticateUser);
 app.get('/api/user/:uuid/videos/uploaded', routes.userAPI.getUploadedVideos);
 app.get('/api/user/:uuid/videos/upvoted', routes.userAPI.getUpvotedVideos);
 
