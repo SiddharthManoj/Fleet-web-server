@@ -10,7 +10,7 @@ userSchema.add({
 	updated_at: Date,
 	username: String,
   email: String,
-  my_videos_arr: [{
+  uploaded_videos_arr: [{
     type: String,
   }],
   upvoted_videos_arr: [{
