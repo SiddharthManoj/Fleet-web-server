@@ -20,11 +20,8 @@ videoSchema.add({
   thumbnail: String,
   s3: String,
   author: {
-    id: {
       type: Schema.Types.ObjectId,
       ref: 'User'
-    },
-    name: String
   },
 });
 
