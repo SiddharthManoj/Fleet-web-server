@@ -19,37 +19,30 @@ exports.getVideo = function(req, res) {
 
 //POST add video
 exports.addVideo = function(req, res) {
-	req.models.User.findById(req.params.uuid, function(err, user) {
-		if (err) throw err;
-		if (!user) {
-			res.json({ success: false, message: 'Updated failed! User not found.' });
-		}
-		else {
-			if (req.body.username) {
-				user.username = req.body.username;
-			}
+	var newVideo = new models.Video();
+	newVideo.title = req.body.title;
+	newVideo.hashtags = req.body.hashtags;
+	newVideo.duration = req.body.duration;
+	newVideo.video_focuses = req.body.video_focuses;
+	newVideo.thumbnail = req.body.thumbnail;
+	newVideo.s3 = req.body.s3;
+	newVideo._id = uuident.v4();
+
+	if (newVideo.title && newVideo.hashtags && newVideo.duration && newVideo.video_focuses
+		&& newVideo.thumbnail && newVideo.s3 && newVideo._id) {
+		newVideo.save(function(err){
+			if (err) throw err;
 			res.json({
 				success: true,
-				message: 'User successfully found and updated!',
+				message: 'Video successfully created!',
 			});
-		}
-	});
-	if(req.body){
-		req.models.Video.create({
-			title: req.body.title,
-			hashtags: req.body.hashtags,
-			duration: req.body.duration,
-			video_focuses: req.body.video_focuses,
-			thumbnail: req.body.thumbnail,
-			s3: req.body.s3
-		}), function (err, docs) {
-			if (err) throw err;
-			else {
-				res.status(200).json(docs);
-			}
-		}
-	} else {
-		throw new Error('no data');
+		});
+	}
+	else {
+		res.json({
+			success: false,
+			message: 'Failed to generate new video. At least one field is missing',
+		});
 	}
 };
 
@@ -58,17 +51,28 @@ exports.updateVideo = function(req, res) {
 	req.models.Video.findById(req.params.uuid, function(err, video) {
 		if (err) throw err;
 		if (!video) {
-			res.json({ success: false, message: 'Updated failed! User not found.' });
+			res.json({ success: false, message: 'Updated failed! Video not found.' });
 		}
 		else {
-			if(req.body && req.body.action == 'upvote') {
-				$push: {
-				  num_upvotes: num_upvotes + 1
-				}
+			//check if author
+			if(req.body.title) {
+				video.title = req.body.title;
+			}
+			if(req.body.hashtags) {
+				video.hashtags = req.body.hashtags;
+			}
+			if (req.body.video_focuses) {
+				video.video_focuses = req.body.video_focuses;
+			}
+			if(req.body.user-changed.upvoted) {
+				video.num_upvotes = video.num_upvotes + 1;
 			} 
-			res.json({
-				success: true,
-				message: 'Video successfully found and updated!',
+			video.save(function (err){
+				if (err) throw err;
+				res.json({
+					success: true,
+					message: 'Video successfully found and updated!',
+				});
 			});
 		}
 	});

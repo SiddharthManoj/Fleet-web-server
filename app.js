@@ -66,7 +66,6 @@ app.post('/api/users', function(req, res) {
 	}, function(err, user) {
 		if (err) throw err;
 		if (user) {
-			console.log("user exists");
 			res.json({ success: false, message: 'Signup failed! User with given email already exists' });
 		}
 		else {

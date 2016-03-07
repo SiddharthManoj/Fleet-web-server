@@ -5,7 +5,7 @@ var bcrypt = require('bcrypt')
 var videoSchema = new Schema();
 videoSchema.add({
 	_id: String,
-	created_at: Date,
+  created_at: Date,
 	updated_at: Date,
 	title: String,
   hashtags: [{
@@ -19,6 +19,13 @@ videoSchema.add({
   }],
   thumbnail: String,
   s3: String,
+  author: {
+    id: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    name: String
+  },
 });
 
 videoSchema.pre('save', function(next){

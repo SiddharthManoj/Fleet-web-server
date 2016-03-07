@@ -35,11 +35,11 @@ exports.update = function(req, res) {
 				user.username = req.body.username;
 			}
 			user.save(function (err){
-				if (err) throw new Error('could not save user');
-			});
-			res.json({
-				success: true,
-				message: 'User successfully found and updated!',
+				if (err) throw err;
+				res.json({
+					success: true,
+					message: 'User successfully found and updated!',
+				});
 			});
 		}
 	});
