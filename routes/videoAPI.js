@@ -8,18 +8,10 @@ exports.getVideo = function(req, res) {
 			res.json({ success: false, message: 'Get failed! Video not found.' });
 		}
 		else {
-			var videoObject = { 
-				"title": video.title,
-				"hashtags": video.hashtags,
-				"duration": video.duration,
-				"video_focuses": video.video_focuses,
-				"thumbnail": video.thumbnail,
-				"s3": video.s3
-			};
 			res.json({
 				success: true,
 				message: 'Video successfully found!',
-				user: videoObject
+				video: video
 			});
 		}
 	});
@@ -27,14 +19,19 @@ exports.getVideo = function(req, res) {
 
 //POST add video
 exports.addVideo = function(req, res) {
-	models.User.findOne({
-		uuid: req.body.uuid
-	}, function(err, user) {
+	req.models.User.findById(req.params.uuid, function(err, user) {
+		if (err) throw err;
 		if (!user) {
-			res.json({ success: false, message: 'Get failed! User not found.' });
+			res.json({ success: false, message: 'Updated failed! User not found.' });
 		}
 		else {
-			//update user
+			if (req.body.username) {
+				user.username = req.body.username;
+			}
+			res.json({
+				success: true,
+				message: 'User successfully found and updated!',
+			});
 		}
 	});
 	if(req.body){
@@ -56,20 +53,22 @@ exports.addVideo = function(req, res) {
 	}
 };
 
-//PUT edit video
-exports.editVideo = function(req, res) {
-	req.models.Video.findById(req.params.uuid, function(err, user) {
+//PUT update video
+exports.updateVideo = function(req, res) {
+	req.models.Video.findById(req.params.uuid, function(err, video) {
 		if (err) throw err;
-		if (!user) {
+		if (!video) {
 			res.json({ success: false, message: 'Updated failed! User not found.' });
 		}
 		else {
-			if (req.body.username) {
-				user.username = req.body.username;
-			}
+			if(req.body && req.body.action == 'upvote') {
+				$push: {
+				  num_upvotes: num_upvotes + 1
+				}
+			} 
 			res.json({
 				success: true,
-				message: 'User successfully found and updated!',
+				message: 'Video successfully found and updated!',
 			});
 		}
 	});

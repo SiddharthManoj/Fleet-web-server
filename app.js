@@ -2,6 +2,8 @@
 var express = require('express');
 var models = require('./models');
 var routes = require('./routes');
+var userAPI = require('./routes/userAPI');
+var videoAPI = require('./routes/videoAPI');
 var http = require('http');
 var request = require("request");
 var path = require('path');
@@ -148,21 +150,22 @@ app.all('/api/*', function(req, res, next) {
 	}
 });
 
+
 //User API routes
-app.get('/api/users/:uuid', routes.userAPI.getUser);
-app.put('/api/users/:uuid', routes.userAPI.updateUser);
-app.delete('/api/users/:uuid', routes.userAPI.deleteUser);
-app.get('/api/user/:uuid/videos/uploaded', routes.userAPI.getUploadedVideos);
-app.get('/api/user/:uuid/videos/upvoted', routes.userAPI.getUpvotedVideos);
+app.get('/api/users/:uuid', userAPI.getUser);
+app.put('/api/users/:uuid', userAPI.update);
+app.delete('/api/users/:uuid', userAPI.delete);
+app.get('/api/user/:uuid/videos/uploaded', userAPI.getUploadedVideos);
+app.get('/api/user/:uuid/videos/upvoted', userAPI.getUpvotedVideos);
 
 
 //Video API routes
-app.get('/api/videos/:uuid', routes.videoAPI.getVideo);
-app.put('/api/videos/:uuid', routes.videoAPI.editVideo);
-app.post('/api/videos', routes.videoAPI.addVideo);
-app.delete('/api/videos/:uuid', routes.videoAPI.deleteVideo);
-app.get('/api/videos/:list', routes.videoAPI.getVideos);
-app.get('/api/videos/:list/tags/:tag', routes.videoAPI.getVideoListWithTags);
+app.get('/api/videos/:uuid', videoAPI.getVideo);
+app.post('/api/videos', videoAPI.addVideo);
+app.put('/api/videos/:uuid', videoAPI.updateVideo);
+app.delete('/api/videos/:uuid', videoAPI.deleteVideo);
+app.get('/api/videos/:list', videoAPI.getVideos);
+//app.get('/api/videos/:list/tags/:tag', routes.videoAPI.getVideoListWithTags);
 
 
 //catch-all error 404 response

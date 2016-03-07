@@ -21,16 +21,22 @@ exports.getUser = function(req, res) {
 }
 
 //PUT update user
-exports.updateUser = function(req, res) {
+exports.update = function(req, res) {
 	req.models.User.findById(req.params.uuid, function(err, user) {
 		if (err) throw err;
 		if (!user) {
 			res.json({ success: false, message: 'Updated failed! User not found.' });
 		}
 		else {
+			if (req.body.email) {
+				user.email = req.body.email;
+			}
 			if (req.body.username) {
 				user.username = req.body.username;
 			}
+			user.save(function (err){
+				if (err) throw new Error('could not save user');
+			});
 			res.json({
 				success: true,
 				message: 'User successfully found and updated!',
@@ -40,7 +46,7 @@ exports.updateUser = function(req, res) {
 };
 
 //DELETE remove user
-exports.deleteUser = function(req, res) {
+exports.delete = function(req, res) {
 	req.models.User.findByIdAndRemove(req.params.uuid, function(err, user){
 		if (err) throw err;
 		if (!user) {
