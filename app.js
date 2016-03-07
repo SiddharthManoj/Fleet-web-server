@@ -156,6 +156,14 @@ app.get('/api/user/:uuid/videos/uploaded', routes.userAPI.getUploadedVideos);
 app.get('/api/user/:uuid/videos/upvoted', routes.userAPI.getUpvotedVideos);
 
 
+//Video API routes
+app.get('/api/videos/:uuid', routes.videoAPI.getVideo);
+app.put('/api/videos/:uuid', routes.videoAPI.editVideo);
+app.post('/api/videos', routes.videoAPI.addVideo);
+app.delete('/api/videos/:uuid', routes.videoAPI.deleteVideo);
+app.get('/api/videos/:list', routes.videoAPI.getVideos);
+app.get('/api/videos/:list/tags/:tag', routes.videoAPI.getVideoListWithTags);
+
 
 //catch-all error 404 response
 app.all('*', function(req, res) {
