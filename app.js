@@ -93,6 +93,7 @@ app.post('/api/users', function(req, res) {
 	});
 });
 
+
 //authenticate
 app.post('/api/authenticate', function(req, res) {
 	models.User.findOne({
@@ -126,6 +127,7 @@ app.post('/api/authenticate', function(req, res) {
 	});
 });
 
+
 //add authentication middleware middleware -- NEEDS TO BE AFTER api/authenticate
 app.all('/api/*', function(req, res, next) {
 	var token = req.body.token || req.query.token || req.headers['x-auth-token'];
@@ -149,7 +151,6 @@ app.all('/api/*', function(req, res, next) {
 	}
 });
 
-
 //User API routes
 app.get('/api/users/:uuid', userAPI.getUser);
 app.put('/api/users/:uuid', userAPI.update);
@@ -163,7 +164,8 @@ app.get('/api/videos/:uuid', videoAPI.getVideo);
 app.post('/api/videos', videoAPI.addVideo);
 app.put('/api/videos/:uuid', videoAPI.updateVideo);
 app.delete('/api/videos/:uuid', videoAPI.deleteVideo);
-app.get('/api/videos/:list', videoAPI.getVideos);
+app.get('/api/videos/list/all', videoAPI.getVideos);
+//will make list :list later
 //app.get('/api/videos/:list/tags/:tag', routes.videoAPI.getVideoListWithTags);
 
 

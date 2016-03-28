@@ -2,6 +2,7 @@
 exports.getUser = function(req, res) {
 	req.models.User.findById(req.params.uuid, function(err, user) {
 		if (err) throw err;
+		console.log(user);
 		if (!user) {
 			res.json({ success: false, message: 'Get failed! User not found.' });
 		}

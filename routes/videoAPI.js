@@ -1,4 +1,16 @@
+var models = require('../models');
 var LIMIT = 10;
+
+
+/**********************************************
+                  IMPORTANT
+ **********************************************
+
+things to do: 
+-create video references or user references 
+
+*/
+
 
 //GET a specific video
 exports.getVideo = function(req, res) {
@@ -25,6 +37,10 @@ exports.addVideo = function(req, res) {
 	newVideo.duration = req.body.duration;
 	newVideo.video_focuses = req.body.video_focuses;
 	newVideo.thumbnail = req.body.thumbnail;
+	//not sure if i need below but just for postman to work
+	//newVideo.num_upvotes = 0;
+	//newVideo.num_views = 0;
+	//------
 	newVideo.s3 = req.body.s3;
 	newVideo._id = uuident.v4();
 
@@ -64,7 +80,7 @@ exports.updateVideo = function(req, res) {
 			if (req.body.video_focuses) {
 				video.video_focuses = req.body.video_focuses;
 			}
-			if(req.body.user-changed.upvoted) {
+			if(req.body.userchanged.upvoted) {
 				video.num_upvotes = video.num_upvotes + 1;
 			} 
 			video.save(function (err){
@@ -100,7 +116,7 @@ exports.getVideos = function(req, res) {
 	req.models.Video.find({}, null, {
 		limit: limit,
 		sort: {
-			'_id: -1'
+			'_id': -1
 		}
 	}, function(err, docs) {
 		if(err || !docs) throw err;
