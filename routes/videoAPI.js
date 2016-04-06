@@ -1,17 +1,6 @@
 var models = require('../models');
 var LIMIT = 10;
 
-
-/**********************************************
-                  IMPORTANT
- **********************************************
-
-things to do: 
--create video references or user references 
-
-*/
-
-
 //GET a specific video
 exports.getVideo = function(req, res) {
 	req.models.Video.findById(req.params.uuid, function(err, video) {
@@ -37,10 +26,9 @@ exports.addVideo = function(req, res) {
 	newVideo.duration = req.body.duration;
 	newVideo.video_focuses = req.body.video_focuses;
 	newVideo.thumbnail = req.body.thumbnail;
-	//not sure if i need below but just for postman to work
-	//newVideo.num_upvotes = 0;
-	//newVideo.num_views = 0;
-	//------
+	newVideo.num_upvotes = 0;
+	newVideo.num_views = 0;
+	newVideo.rating = 0;
 	newVideo.s3 = req.body.s3;
 	newVideo._id = uuident.v4();
 
@@ -82,6 +70,7 @@ exports.updateVideo = function(req, res) {
 			}
 			if(req.body.userchanged.upvoted) {
 				video.num_upvotes = video.num_upvotes + 1;
+				video.rating = (video.num_upvotes * .5) + (video.num_views * .5);
 			} 
 			video.save(function (err){
 				if (err) throw err;
@@ -113,25 +102,53 @@ exports.deleteVideo = function(req, res) {
 //GET video list
 exports.getVideos = function(req, res) {
 	var limit = req.query.limit || LIMIT;
-	req.models.Video.find({}, null, {
-		limit: limit,
-		sort: {
-			'_id': -1
-		}
-	}, function(err, docs) {
-		if(err || !docs) throw err;
-		var videos = [];
-		docs.forEach(function(doc, i, list){
-			var item = doc.toObject();
-			videos.push(item);
+
+	if(req.params.category == "hot") {
+		req.models.Video.find({}, null, {
+			limit: limit,
+			sort: {
+				'rating': -1
+			}
+		}, function(err, docs) {
+			if(err || !docs) throw err;
+			var videos = [];
+			docs.forEach(function(doc, i, list){
+				var item = doc.toObject();
+				videos.push(item);
+			});
+			var body = {};
+			body.limit = limit;
+			body.videos = videos;
+			req.models.Video.count({}, function(err, total) {
+				if (err) throw err;
+				body.total = total;
+				res.status(200).json(body);
+			});
 		});
-		var body = {};
-		body.limit = limit;
-		body.videos = videos;
-		req.models.Video.count({}, function(err, total) {
-			if (err) throw err;
-			body.total = total;
-			res.status(200).json(body);
+	} else if(req.params.category == "new") {
+		req.models.Video.find({}, null, {
+			limit: limit,
+			sort: {
+				'created_at': -1
+			}
+		}, function(err, docs) {
+			if(err || !docs) throw err;
+			var videos = [];
+			docs.forEach(function(doc, i, list){
+				var item = doc.toObject();
+				videos.push(item);
+			});
+			var body = {};
+			body.limit = limit;
+			body.videos = videos;
+			req.models.Video.count({}, function(err, total) {
+				if (err) throw err;
+				body.total = total;
+				res.status(200).json(body);
+			});
 		});
-	});
+	} else {
+		throw err;
+	}
+	
 };

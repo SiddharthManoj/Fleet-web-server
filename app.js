@@ -151,6 +151,7 @@ app.all('/api/*', function(req, res, next) {
 	}
 });
 
+
 //User API routes
 app.get('/api/users/:uuid', userAPI.getUser);
 app.put('/api/users/:uuid', userAPI.update);
@@ -164,8 +165,7 @@ app.get('/api/videos/:uuid', videoAPI.getVideo);
 app.post('/api/videos', videoAPI.addVideo);
 app.put('/api/videos/:uuid', videoAPI.updateVideo);
 app.delete('/api/videos/:uuid', videoAPI.deleteVideo);
-app.get('/api/videos/list/all', videoAPI.getVideos);
-//will make list :list later
+app.get('/api/videos/list/:category', videoAPI.getVideos);
 //app.get('/api/videos/:list/tags/:tag', routes.videoAPI.getVideoListWithTags);
 
 

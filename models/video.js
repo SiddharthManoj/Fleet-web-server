@@ -13,6 +13,7 @@ videoSchema.add({
   }],
   num_upvotes: Number,
   num_views: Number,
+  rating: Number,
   duration: Number,
   video_focuses:[{
     type: Number,
