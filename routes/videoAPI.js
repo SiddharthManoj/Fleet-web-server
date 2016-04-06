@@ -29,11 +29,12 @@ exports.addVideo = function(req, res) {
 	newVideo.num_upvotes = 0;
 	newVideo.num_views = 0;
 	newVideo.rating = 0;
+	newVideo.author = req.body.uuid; // reference to the creator of the video
 	newVideo.s3 = req.body.s3;
 	newVideo._id = uuident.v4();
 
 	if (newVideo.title && newVideo.hashtags && newVideo.duration && newVideo.video_focuses
-		&& newVideo.thumbnail && newVideo.s3 && newVideo._id) {
+		&& newVideo.thumbnail && newVideo.s3 && newVideo._id && newVideo.author) {
 		newVideo.save(function(err){
 			if (err) throw err;
 			res.json({
