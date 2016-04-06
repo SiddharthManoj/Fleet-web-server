@@ -8,7 +8,7 @@ exports.getUser = function(req, res) {
 		}
 		else {
 			var userObject = { 
-				"uuid": user.uuid,
+				"uuid": user._id,
 				"email": user.email,
 				"username": user.username,
 			}

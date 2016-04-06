@@ -1,6 +1,6 @@
 var models = require('../models');
 var LIMIT = 10;
-
+//var ObjectId = require('mongoose').Schema.Types.ObjectId;
 //GET a specific video
 exports.getVideo = function(req, res) {
 	req.models.Video.findById(req.params.uuid, function(err, video) {
@@ -20,35 +20,47 @@ exports.getVideo = function(req, res) {
 
 //POST add video
 exports.addVideo = function(req, res) {
-	var newVideo = new models.Video();
-	newVideo.title = req.body.title;
-	newVideo.hashtags = req.body.hashtags;
-	newVideo.duration = req.body.duration;
-	newVideo.video_focuses = req.body.video_focuses;
-	newVideo.thumbnail = req.body.thumbnail;
-	newVideo.num_upvotes = 0;
-	newVideo.num_views = 0;
-	newVideo.rating = 0;
-	newVideo.author = req.body.uuid; // reference to the creator of the video
-	newVideo.s3 = req.body.s3;
-	newVideo._id = uuident.v4();
-
-	if (newVideo.title && newVideo.hashtags && newVideo.duration && newVideo.video_focuses
-		&& newVideo.thumbnail && newVideo.s3 && newVideo._id && newVideo.author) {
-		newVideo.save(function(err){
-			if (err) throw err;
+	req.models.User.findById(req.body.author, function(err, user) {
+		if (err) throw err;
+		if (!user) {
+			res.json({ success: false, message: 'Could not find author of video.' });
+		}
+		else {
 			res.json({
 				success: true,
-				message: 'Video successfully created!',
+				message: 'Video successfully found!',
+				user: user
 			});
-		});
-	}
-	else {
-		res.json({
-			success: false,
-			message: 'Failed to generate new video. At least one field is missing',
-		});
-	}
+			var newVideo = new models.Video();
+			newVideo.title = req.body.title;
+			newVideo.hashtags = req.body.hashtags;
+			newVideo.duration = req.body.duration;
+			newVideo.video_focuses = req.body.video_focuses;
+			newVideo.thumbnail = req.body.thumbnail;
+			newVideo.num_upvotes = 0;
+			newVideo.num_views = 0;
+			newVideo.rating = 0;
+			newVideo.author = user._id; // reference to the creator of the video
+			newVideo.s3 = req.body.s3;
+			newVideo._id = uuident.v4();
+			if (newVideo.title && newVideo.hashtags && newVideo.duration && newVideo.video_focuses
+				&& newVideo.thumbnail && newVideo.s3 && newVideo._id) {
+				newVideo.save(function(err){
+					if (err) throw err;
+					res.json({
+						success: true,
+						message: 'Video successfully created!',
+					});
+				});
+			}
+			else {
+				res.json({
+					success: false,
+					message: 'Failed to generate new video. At least one field is missing',
+				});
+			}
+		}
+	});
 };
 
 //PUT update video

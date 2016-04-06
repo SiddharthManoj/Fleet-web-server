@@ -20,10 +20,11 @@ videoSchema.add({
   }],
   thumbnail: String,
   s3: String,
-  author: {
+  /*author: {
       type: Schema.Types.ObjectId,
       ref: 'User'
-  },
+  },*/
+  author: String,
 });
 
 videoSchema.pre('save', function(next){
