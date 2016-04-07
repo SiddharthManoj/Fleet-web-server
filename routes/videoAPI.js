@@ -26,11 +26,6 @@ exports.addVideo = function(req, res) {
 			res.json({ success: false, message: 'Could not find author of video.' });
 		}
 		else {
-			res.json({
-				success: true,
-				message: 'Video successfully found!',
-				user: user
-			});
 			var newVideo = new models.Video();
 			newVideo.title = req.body.title;
 			newVideo.hashtags = req.body.hashtags;
