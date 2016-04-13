@@ -64,12 +64,12 @@ exports.delete = function(req, res) {
 					}
 				});
 			}
-			/*req.models.User.findByIdAndRemove(req.params.uuid, function(err, user){
+			req.models.User.findByIdAndRemove(req.params.uuid, function(err, user){
 				res.json({
 					success: true,
 					message: 'User successfully deleted!',
 				});
-			});*/
+			});
 		}
 	});
 };
