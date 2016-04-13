@@ -53,12 +53,12 @@ exports.delete = function(req, res) {
 		if (!user) {
 			res.json({ success: false, message: 'Delete failed! User not found.' });
 		}
+		else{
 			res.json({
 				success: true,
 				message: 'User successfully deleted!',
 			});
-
-		
+		}
 	});
 };
 
