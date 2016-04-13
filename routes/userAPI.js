@@ -55,20 +55,24 @@ exports.delete = function(req, res) {
 		}
 		else{
 			var uploadedVideos = user.uploaded_videos_arr;
-			for (var x = 0; x< uploadedVideos.length; x++){
+			for (var x = 0; x < uploadedVideos.length; x++){
 				req.models.Video.findByIdAndRemove(uploadedVideos[x], function(err, video){
 					if (err) throw err;
 					if (!video) {
 						res.json({ success: false, message: 'Delete failed! Video not found.' });
 					}
+					else {
+						if (x == uploadedVideos.length-1) {
+							req.models.User.findByIdAndRemove(req.params.uuid, function(err, user){
+								res.json({
+									success: true,
+									message: 'User successfully deleted!',
+								});
+							});
+						}
+					}
 				});
 			}
-			req.models.User.findByIdAndRemove(req.params.uuid, function(err, user){
-				res.json({
-					success: true,
-					message: 'User successfully deleted!',
-				});
-			});
 		}
 	});
 };
