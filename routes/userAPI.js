@@ -48,16 +48,28 @@ exports.update = function(req, res) {
 
 //DELETE remove user
 exports.delete = function(req, res) {
-	req.models.User.findByIdAndRemove(req.params.uuid, function(err, user){
+	req.models.User.findById( req.params.uuid, function(err, user) {
 		if (err) throw err;
 		if (!user) {
 			res.json({ success: false, message: 'Delete failed! User not found.' });
 		}
 		else{
-			res.json({
-				success: true,
-				message: 'User successfully deleted!',
-			});
+			var uploadedVideos = user.uploaded_videos_arr;
+			console.log(uploadedVideos.length);
+			for (var x = 0; x< uploadedVideos.length; x++){
+				req.models.Video.findByIdAndRemove(uploadedVideos[x], function(err, video){
+					if (err) throw err;
+					if (!video) {
+						res.json({ success: false, message: 'Delete failed! Video not found.' });
+					}
+				});
+			}
+			/*req.models.User.findByIdAndRemove(req.params.uuid, function(err, user){
+				res.json({
+					success: true,
+					message: 'User successfully deleted!',
+				});
+			});*/
 		}
 	});
 };

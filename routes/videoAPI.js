@@ -42,10 +42,18 @@ exports.addVideo = function(req, res) {
 				&& newVideo.thumbnail && newVideo.s3 && newVideo._id) {
 				newVideo.save(function(err){
 					if (err) throw err;
-					res.json({
-						success: true,
-						message: 'Video successfully created!',
-					});
+					else{
+						user.uploaded_videos_arr.push(newVideo);
+						user.save(function(err){
+							if(err) throw err;
+							else{
+								res.json({
+									success: true,
+									message: 'Video successfully created!',
+								});
+							}
+						});
+					}
 				});
 			}
 			else {
