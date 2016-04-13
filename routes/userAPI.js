@@ -55,9 +55,17 @@ exports.delete = function(req, res) {
 		}
 		else{
 			var uploadedVideos = user.uploaded_videos_arr;
-			console.log(uploadedVideos.length);
 			for (var x = 0; x< uploadedVideos.length; x++){
 				req.models.Video.findByIdAndRemove(uploadedVideos[x], function(err, video){
+					if (err) throw err;
+					if (!video) {
+						res.json({ success: false, message: 'Delete failed! Video not found.' });
+					}
+				});
+			}
+			var upvotedVideos = user.upvoted_videos_arr;
+			for (var x = 0; x< upvotedVideos.length; x++){
+				req.models.Video.findByIdAndRemove(upvotedVideos[x], function(err, video){
 					if (err) throw err;
 					if (!video) {
 						res.json({ success: false, message: 'Delete failed! Video not found.' });
