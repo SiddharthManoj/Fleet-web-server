@@ -63,15 +63,6 @@ exports.delete = function(req, res) {
 					}
 				});
 			}
-			var upvotedVideos = user.upvoted_videos_arr;
-			for (var x = 0; x< upvotedVideos.length; x++){
-				req.models.Video.findByIdAndRemove(upvotedVideos[x], function(err, video){
-					if (err) throw err;
-					if (!video) {
-						res.json({ success: false, message: 'Delete failed! Video not found.' });
-					}
-				});
-			}
 			req.models.User.findByIdAndRemove(req.params.uuid, function(err, user){
 				res.json({
 					success: true,
