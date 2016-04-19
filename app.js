@@ -165,7 +165,8 @@ app.get('/api/videos/:uuid', videoAPI.getVideo);
 app.post('/api/videos', videoAPI.addVideo);
 app.put('/api/videos/:uuid', videoAPI.updateVideo);
 app.delete('/api/videos/:uuid', videoAPI.deleteVideo);
-app.get('/api/videos/list/:category', videoAPI.getVideos);
+app.get('/api/videos/list/hot', videoAPI.getHotVideos);
+app.get('/api/videos/list/new', videoAPI.getNewVideos);
 //app.get('/api/videos/:list/tags/:tag', routes.videoAPI.getVideoListWithTags);
 
 

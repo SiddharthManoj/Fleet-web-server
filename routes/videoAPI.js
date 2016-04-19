@@ -115,56 +115,61 @@ exports.deleteVideo = function(req, res) {
 	});
 };
 
-//GET video list
-exports.getVideos = function(req, res) {
-	var limit = req.query.limit || LIMIT;
+//GET hot video list
+exports.getHotVideos = function(req, res) {
+	var _limit = req.query.limit || LIMIT;
 
-	if(req.params.category == "hot") {
-		req.models.Video.find({}, null, {
-			limit: limit,
-			sort: {
-				'rating': -1
-			}
-		}, function(err, docs) {
-			if(err || !docs) throw err;
-			var videos = [];
-			docs.forEach(function(doc, i, list){
-				var item = doc.toObject();
-				videos.push(item);
-			});
-			var body = {};
-			body.limit = limit;
-			body.videos = videos;
-			req.models.Video.count({}, function(err, total) {
-				if (err) throw err;
-				body.total = total;
-				res.status(200).json(body);
-			});
+	req.models.Video.find({}, null, {
+		if (err) throw err;
+		limit: _limit,
+		sort: {
+			'rating': -1
+		}
+	}, function(err, docs) {
+		if(err || !docs) throw err;
+		var videos = [];
+		docs.forEach(function(doc, i, list){
+			var item = doc.toObject();
+			videos.push(item);
 		});
-	} else if(req.params.category == "new") {
-		req.models.Video.find({}, null, {
-			limit: limit,
-			sort: {
-				'created_at': -1
-			}
-		}, function(err, docs) {
-			if(err || !docs) throw err;
-			var videos = [];
-			docs.forEach(function(doc, i, list){
-				var item = doc.toObject();
-				videos.push(item);
-			});
-			var body = {};
-			body.limit = limit;
-			body.videos = videos;
-			req.models.Video.count({}, function(err, total) {
-				if (err) throw err;
-				body.total = total;
-				res.status(200).json(body);
-			});
+		var body = {};
+		body.limit = _limit;
+		body.videos = videos;
+		req.models.Video.count({}, function(err, total) {
+			if (err) throw err;
+			body.total = total;
+			res.status(200).json(body);
 		});
-	} else {
-		throw err;
-	}
+	});
 	
 };
+
+//GET new video list
+exports.getNewVideos = function(req, res) {
+	var _limit = req.query.limit || LIMIT;
+
+	req.models.Video.find({}, null, {
+		if (err) throw err;
+		limit: _limit,
+		sort: {
+			'created_at': -1
+		}
+	}, function(err, docs) {
+		if(err || !docs) throw err;
+		var videos = [];
+		docs.forEach(function(doc, i, list){
+			var item = doc.toObject();
+			videos.push(item);
+		});
+		var body = {};
+		body.limit = _limit;
+		body.videos = videos;
+		req.models.Video.count({}, function(err, total) {
+			if (err) throw err;
+			body.total = total;
+			res.status(200).json(body);
+		});
+	});
+	
+};
+
