@@ -1,0 +1,99 @@
+[{
+    "title": "Tim Cheng's Video",
+    "hashtags": ["Baller", "HearthstoneMaster", "UberEmployee"],
+    "duration": "5",
+    "video_focuses": [5],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "0dbadde9-12ab-4519-95b3-fdf95dbea99f"
+},
+
+{
+    "title": "Rahul's Video",
+    "hashtags": ["Westbrook", "ankle", "Uber"],
+    "duration": "9",
+    "video_focuses": [10],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "0dbadde9-12ab-4519-95b3-fdf95dbea99f"
+},
+
+{
+    "title": "Sid's Video",
+    "hashtags": ["Yeezy", "New York Siddy"],
+    "duration": "5",
+    "video_focuses": [15],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "0dbadde9-12ab-4519-95b3-fdf95dbea99f"
+},
+
+{
+    "title": "Spencer's Video",
+    "hashtags": ["iOS", "EE", "ballin"],
+    "duration": "4",
+    "video_focuses": [20],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "0dbadde9-12ab-4519-95b3-fdf95dbea99f"
+},
+
+{
+    "title": "Derrick's Video",
+    "hashtags": ["Ski", "Apple"],
+    "duration": "3",
+    "video_focuses": [25],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "0dbadde9-12ab-4519-95b3-fdf95dbea99f"
+},
+
+{
+    "title": "Steph Curry's Video",
+    "hashtags": ["moments", "mvp", "3pt"],
+    "duration": "8",
+    "video_focuses": [30],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "0dbadde9-12ab-4519-95b3-fdf95dbea99f"
+},
+
+{
+    "title": "Klayyyy lmao",
+    "hashtags": ["420", "hotandcold", "idontcare"],
+    "duration": "7",
+    "video_focuses": [35],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "0dbadde9-12ab-4519-95b3-fdf95dbea99f"
+},
+
+{
+    "title": "Andrew Bogut's video",
+    "hashtags": ["m8", "mate", "wot"],
+    "duration": "6",
+    "video_focuses": [40],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "0dbadde9-12ab-4519-95b3-fdf95dbea99f"
+},
+
+{
+    "title": "Warriors dynasty",
+    "hashtags": ["betterthanbulls", "bulls", "steph"],
+    "duration": "5",
+    "video_focuses": [45],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "0dbadde9-12ab-4519-95b3-fdf95dbea99f"
+},
+
+{
+    "title": "better than the bulls",
+    "hashtags": ["jordancrying", "pippencrying", "excuses"],
+    "duration": "4",
+    "video_focuses": [50],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "0dbadde9-12ab-4519-95b3-fdf95dbea99f"
+}]

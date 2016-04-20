@@ -33,7 +33,10 @@ exports.addVideo = function(req, res) {
 			newVideo.video_focuses = req.body.video_focuses;
 			newVideo.thumbnail = req.body.thumbnail;
 			newVideo.num_upvotes = 0;
-			newVideo.num_views = 0;
+			if(req.body.num_views)
+				newVideo.num_views = req.body.num_views;
+			else
+				newVideo.num_views = 0;
 			newVideo.rating = 0;
 			newVideo.author = user._id; // reference to the creator of the video
 			newVideo.s3 = req.body.s3;
