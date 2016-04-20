@@ -130,9 +130,21 @@ exports.getHotVideos = function(req, res) {
 	}, function(err, docs) {
 		if(err || !docs) throw err;
 		var videos = [];
-		docs.forEach(function(doc, i, list){
+				docs.forEach(function(doc, i, list){
 			var item = doc.toObject();
-			videos.push(item);
+			if(Object.keys(req.query).length !== 0) { 
+				outerloop:
+					for(var i in req.query) {
+						for(var j in item.hashtags) {
+							if(req.query[i] == item.hashtags[j]) {
+								videos.push(item);
+								break outerloop;
+							}
+						}
+					}
+			} else {
+				videos.push(item);
+			}
 		});
 		var body = {};
 		body.limit = _limit;
@@ -160,7 +172,19 @@ exports.getNewVideos = function(req, res) {
 		var videos = [];
 		docs.forEach(function(doc, i, list){
 			var item = doc.toObject();
-			videos.push(item);
+			if(Object.keys(req.query).length !== 0) { 
+				outerloop:
+					for(var i in req.query) {
+						for(var j in item.hashtags) {
+							if(req.query[i] == item.hashtags[j]) {
+								videos.push(item);
+								break outerloop;
+							}
+						}
+					}
+			} else {
+				videos.push(item);
+			}
 		});
 		var body = {};
 		body.limit = _limit;

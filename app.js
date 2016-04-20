@@ -167,8 +167,6 @@ app.put('/api/videos/:uuid', videoAPI.updateVideo);
 app.delete('/api/videos/:uuid', videoAPI.deleteVideo);
 app.get('/api/videos/list/hot', videoAPI.getHotVideos);
 app.get('/api/videos/list/new', videoAPI.getNewVideos);
-//app.get('/api/videos/list/hot/:tag', routes.videoAPI.getHotTagVideos);
-//app.get('/api/videos/list/new/:tag', routes.videoAPI.getNewTagVideos);
 
 
 //catch-all error 404 response
