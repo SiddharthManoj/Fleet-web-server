@@ -120,7 +120,6 @@ exports.getHotVideos = function(req, res) {
 	var _limit = req.query.limit || LIMIT;
 
 	req.models.Video.find({}, null, {
-		if (err) throw err;
 		limit: _limit,
 		sort: {
 			'rating': -1
@@ -149,7 +148,6 @@ exports.getNewVideos = function(req, res) {
 	var _limit = req.query.limit || LIMIT;
 
 	req.models.Video.find({}, null, {
-		if (err) throw err;
 		limit: _limit,
 		sort: {
 			'created_at': -1
@@ -172,4 +170,5 @@ exports.getNewVideos = function(req, res) {
 	});
 	
 };
+
 
