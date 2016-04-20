@@ -121,26 +121,48 @@ exports.deleteVideo = function(req, res) {
 //GET hot video list
 exports.getHotVideos = function(req, res) {
 
-	req.models.Video.find({ hashtags: { $in: req.query.hashtags } })
-	.sort({'num_views': -1})
-	.limit(req.query.limit)
-	.find(function(err, videos) {
-		if (err) throw err;
-		if (!videos) {
-			res.json({
-				success: false,
-				message: 'No videos found',
-			});
-		}
-		else {
-			res.json({
-				success: true,
-				message: 'Hot videos found!',
-				videos: videos,
-			});
-		}
-	});
-
+	if (req.query.tag) {
+		req.models.Video.find({ hashtags: req.query.tag })
+		.sort({'num_views': -1})
+		.limit(10)
+		.find(function(err, videos) {
+			if (err) throw err;
+			if (!videos || videos.length == 0) {
+				res.json({
+					success: false,
+					message: 'No videos found',
+				});
+			}
+			else {
+				res.json({
+					success: true,
+					message: 'Hot videos found!',
+					videos: videos,
+				});
+			}
+		});
+	}
+	else {
+		req.models.Video.find({})
+		.sort({'num_views': -1})
+		.limit(10)
+		.find(function(err, videos) {
+			if (err) throw err;
+			if (!videos || videos.length == 0) {
+				res.json({
+					success: false,
+					message: 'No videos found',
+				});
+			}
+			else {
+				res.json({
+					success: true,
+					message: 'Hot videos found!',
+					videos: videos,
+				});
+			}
+		});
+	}
 	/*
 	var _limit = req.query.limit || LIMIT;
 
