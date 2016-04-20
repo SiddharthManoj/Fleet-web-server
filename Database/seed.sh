@@ -1,1 +1,1 @@
-mongoimport --db fleet --collection videos --file ./Database/videos.json --jsonArray
+mongoimport --db fleet --collection videos --file videos.json --jsonArray
