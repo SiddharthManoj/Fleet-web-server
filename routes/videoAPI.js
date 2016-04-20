@@ -39,6 +39,7 @@ exports.addVideo = function(req, res) {
 				newVideo.num_views = 0;
 			newVideo.rating = 0;
 			newVideo.author = user._id; // reference to the creator of the video
+			newVideo.author_username = user.username;
 			newVideo.s3 = req.body.s3;
 			newVideo._id = uuident.v4();
 			if (newVideo.title && newVideo.hashtags && newVideo.duration && newVideo.video_focuses
@@ -120,7 +121,6 @@ exports.deleteVideo = function(req, res) {
 
 //GET hot video list
 exports.getHotVideos = function(req, res) {
-
 	if (req.query.tag) {
 		req.models.Video.find({ hashtags: req.query.tag })
 		.sort({'num_views': -1})
@@ -130,7 +130,7 @@ exports.getHotVideos = function(req, res) {
 			if (!videos || videos.length == 0) {
 				res.json({
 					success: false,
-					message: 'No videos found',
+					message: 'No hot videos found with tag',
 				});
 			}
 			else {
@@ -151,7 +151,7 @@ exports.getHotVideos = function(req, res) {
 			if (!videos || videos.length == 0) {
 				res.json({
 					success: false,
-					message: 'No videos found',
+					message: 'No hot videos found',
 				});
 			}
 			else {
@@ -162,85 +162,53 @@ exports.getHotVideos = function(req, res) {
 				});
 			}
 		});
-	}
-	/*
-	var _limit = req.query.limit || LIMIT;
-
-	req.models.Video.find({}, null, {
-		limit: _limit,
-		sort: {
-			'rating': -1
-		}
-	}, function(err, docs) {
-		if(err || !docs) throw err;
-		var videos = [];
-				docs.forEach(function(doc, i, list){
-			var item = doc.toObject();
-			if(Object.keys(req.query).length !== 0) { 
-				outerloop:
-					for(var i in req.query) {
-						for(var j in item.hashtags) {
-							if(req.query[i] == item.hashtags[j]) {
-								videos.push(item);
-								break outerloop;
-							}
-						}
-					}
-			} else {
-				videos.push(item);
-			}
-		});
-		var body = {};
-		body.limit = _limit;
-		body.videos = videos;
-		req.models.Video.count({}, function(err, total) {
-			if (err) throw err;
-			body.total = total;
-			res.status(200).json(body);
-		});
-	});
-*/
-	
+	}	
 };
 
 //GET new video list
 exports.getNewVideos = function(req, res) {
-	var _limit = req.query.limit || LIMIT;
-
-	req.models.Video.find({}, null, {
-		limit: _limit,
-		sort: {
-			'created_at': -1
-		}
-	}, function(err, docs) {
-		if(err || !docs) throw err;
-		var videos = [];
-		docs.forEach(function(doc, i, list){
-			var item = doc.toObject();
-			if(Object.keys(req.query).length !== 0) { 
-				outerloop:
-					for(var i in req.query) {
-						for(var j in item.hashtags) {
-							if(req.query[i] == item.hashtags[j]) {
-								videos.push(item);
-								break outerloop;
-							}
-						}
-					}
-			} else {
-				videos.push(item);
+	if (req.query.tag) {
+		req.models.Video.find({ hashtags: req.query.tag })
+		.sort({'created_at': -1})
+		.limit(10)
+		.find(function(err, videos) {
+			if (err) throw err;
+			if (!videos || videos.length == 0) {
+				res.json({
+					success: false,
+					message: 'No new videos found with tag',
+				});
+			}
+			else {
+				res.json({
+					success: true,
+					message: 'New videos found!',
+					videos: videos,
+				});
 			}
 		});
-		var body = {};
-		body.limit = _limit;
-		body.videos = videos;
-		req.models.Video.count({}, function(err, total) {
+	}
+	else {
+		req.models.Video.find({})
+		.sort({'created_at': -1})
+		.limit(10)
+		.find(function(err, videos) {
 			if (err) throw err;
-			body.total = total;
-			res.status(200).json(body);
+			if (!videos || videos.length == 0) {
+				res.json({
+					success: false,
+					message: 'No new videos found',
+				});
+			}
+			else {
+				res.json({
+					success: true,
+					message: 'New videos found!',
+					videos: videos,
+				});
+			}
 		});
-	});
-	
+	}	
 };
 
 

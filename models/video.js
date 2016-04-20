@@ -5,8 +5,8 @@ var bcrypt = require('bcrypt')
 var videoSchema = new Schema();
 videoSchema.add({
 	_id: String,
-  created_at: Date,
-	updated_at: Date,
+  created_at: Number,
+	updated_at: Number,
 	title: String,
   hashtags: [{
     type: String,
@@ -20,18 +20,15 @@ videoSchema.add({
   }],
   thumbnail: String,
   s3: String,
-  /*author: {
-      type: Schema.Types.ObjectId,
-      ref: 'User'
-  },*/
   author: String,
+  author_username: String
 });
 
 videoSchema.pre('save', function(next){
   now = new Date();
-  this.updated_at = now;
+  this.updated_at = now.getTime();
   if ( !this.created_at ) {
-    this.created_at = now;
+    this.created_at = now.getTime();
   }
   next();
 });
