@@ -11,6 +11,8 @@ exports.getUser = function(req, res) {
 				"uuid": user._id,
 				"email": user.email,
 				"username": user.username,
+				"uploaded_videos_arr": user.uploaded_videos_arr,
+				"upvoted_videos_arr": user.upvoted_videos_arr
 			}
 			res.json({
 				success: true,

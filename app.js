@@ -156,8 +156,8 @@ app.all('/api/*', function(req, res, next) {
 app.get('/api/users/:uuid', userAPI.getUser);
 app.put('/api/users/:uuid', userAPI.update);
 app.delete('/api/users/:uuid', userAPI.delete);
-app.get('/api/user/:uuid/videos/uploaded', userAPI.getUploadedVideos);
-app.get('/api/user/:uuid/videos/upvoted', userAPI.getUpvotedVideos);
+app.get('/api/users/:uuid/videos/uploaded', userAPI.getUploadedVideos);
+app.get('/api/users/:uuid/videos/upvoted', userAPI.getUpvotedVideos);
 
 
 //Video API routes
