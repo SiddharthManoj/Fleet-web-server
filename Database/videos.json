@@ -4,7 +4,7 @@
     "duration": "181",
     "video_focuses": [34, 120, 172],
     "thumbnail": "test",
-    "s3": "Japan Sensoji Temple.m4v",
+    "s3": "JapanSensojiTemple.m4v",
     "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
     "author_username": "rahul",
     "created_at":"20394"
@@ -16,7 +16,7 @@
     "duration": "72",
     "video_focuses": [7, 14, 40],
     "thumbnail": "test",
-    "s3": "Japan Sensoji Temple2.m4v",
+    "s3": "JapanSensojiTemple2.m4v",
     "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
     "author_username": "rahul",
     "created_at":"102933"
@@ -28,7 +28,7 @@
     "duration": "119",
     "video_focuses": [33, 101],
     "thumbnail": "test",
-    "s3": "Japan Fushimi Inari Shrine.m4v",
+    "s3": "JapanFushimiInariShrine.m4v",
     "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
     "author_username": "rahul",
     "created_at":"20394"
@@ -40,7 +40,7 @@
     "duration": "64",
     "video_focuses": [17, 37, 59],
     "thumbnail": "test",
-    "s3": "Japan Disneyland.m4v",
+    "s3": "JapanDisneyland.m4v",
     "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
     "author_username": "rahul",
     "created_at":"820394"
@@ -52,7 +52,7 @@
     "duration": "67",
     "video_focuses": [18, 36, 47],
     "thumbnail": "test",
-    "s3": "Japan One Piece Caricature.m4v",
+    "s3": "JapanOnePieceCaricature.m4v",
     "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
     "author_username": "rahul",
     "created_at":"534"
@@ -64,7 +64,7 @@
     "duration": "181",
     "video_focuses": [60, 72, 175],
     "thumbnail": "test",
-    "s3": "Japan Hiroshima Peace Museum.m4v",
+    "s3": "JapanHiroshimaPeaceMuseum.m4v",
     "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
     "author_username": "rahul",
     "created_at":"7383"
@@ -76,7 +76,7 @@
     "duration": "63",
     "video_focuses": [10, 25, 46],
     "thumbnail": "test",
-    "s3": "Outsidelands Kendrick Lamar.m4v",
+    "s3": "OutsidelandsKendrickLamar.m4v",
     "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
     "author_username": "rahul",
     "created_at":"918389"
@@ -88,7 +88,7 @@
     "duration": "71",
     "video_focuses": [25,65],
     "thumbnail": "test",
-    "s3": "Outsidelands Sam Smith.m4v",
+    "s3": "OutsidelandsSamSmith.m4v",
     "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
     "author_username": "rahul",
     "created_at":"5"
@@ -100,7 +100,7 @@
     "duration": "64",
     "video_focuses": [9, 28, 33, 45, 53],
     "thumbnail": "test",
-    "s3": "Kcon Got7 Battle.m4v",
+    "s3": "KconGot7Battle.m4v",
     "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
     "author_username": "rahul",
     "created_at":"99999"
@@ -112,7 +112,7 @@
     "duration": "49",
     "video_focuses": [8, 25, 33],
     "thumbnail": "test",
-    "s3": "Sixflags Steph Curry.m4v",
+    "s3": "SixflagsStephCurry.m4v",
     "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
     "author_username": "rahul",
     "created_at":"17"
