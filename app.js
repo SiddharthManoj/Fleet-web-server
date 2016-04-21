@@ -93,7 +93,7 @@ app.post('/api/users', function(req, res) {
 	});
 });
 
-/*
+
 //authenticate
 app.post('/api/authenticate', function(req, res) {
 	models.User.findOne({
@@ -149,7 +149,7 @@ app.all('/api/*', function(req, res, next) {
 			message: 'No token provided.'
 		});
 	}
-});*/
+});
 
 
 //User API routes
