@@ -1,0 +1,120 @@
+[{
+    "title": "Tim Cheng's Video",
+    "hashtags": ["baller", "hearthstone", "uber"],
+    "duration": "20",
+    "video_focuses": [2.4, 12.8],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
+    "author_username": "rahul",
+    "created_at":"20394",
+    "s3": "MVI_0650.m4v"
+},
+
+{
+    "title": "Rahul's Video",
+    "hashtags": ["westbrook", "ankle", "uber"],
+    "duration": "30",
+    "video_focuses": [10, 22.8],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
+    "author_username": "rahul",
+    "created_at":"102933"
+},
+
+{
+    "title": "Sid's Video",
+    "hashtags": ["yeezy", "nyc"],
+    "duration": "14",
+    "video_focuses": [2.4, 11.8],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
+    "author_username": "rahul",
+    "created_at":"20394"
+},
+
+{
+    "title": "Spencer's Video",
+    "hashtags": ["ios", "ee", "baller"],
+    "duration": "19",
+    "video_focuses": [5.6, 16, 17],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
+    "author_username": "rahul",
+    "created_at":"820394"
+},
+
+{
+    "title": "Derrick's Video",
+    "hashtags": ["ski", "apple"],
+    "duration": "26",
+    "video_focuses": [4.9, 15, 21],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
+    "author_username": "rahul",
+    "created_at":"534"
+},
+
+{
+    "title": "Steph Curry's Video",
+    "hashtags": ["steph", "mvp", "baller"],
+    "duration": "8",
+    "video_focuses": [1, 4],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
+    "author_username": "rahul",
+    "created_at":"7383"
+},
+
+{
+    "title": "Klayyyy lmao",
+    "hashtags": ["420", "baller", "idontcare"],
+    "duration": "33",
+    "video_focuses": [2, 16, 21, 29],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
+    "author_username": "rahul",
+    "created_at":"918389"
+},
+
+{
+    "title": "Andrew Bogut's video",
+    "hashtags": ["baller", "mate", "wot"],
+    "duration": "22",
+    "video_focuses": [5, 18],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
+    "author_username": "rahul",
+    "created_at":"5"
+},
+
+{
+    "title": "Warriors dynasty",
+    "hashtags": ["best", "bulls", "steph"],
+    "duration": "14",
+    "video_focuses": [4, 7, 11],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
+    "author_username": "rahul",
+    "created_at":"99999"
+},
+
+{
+    "title": "better than the bulls",
+    "hashtags": ["jordan", "pippen", "mvp"],
+    "duration": "17",
+    "video_focuses": [1, 13],
+    "thumbnail": "test",
+    "s3": "test",
+    "author": "f09b94d9-e209-4d34-a985-a499fe8b95e8",
+    "author_username": "rahul",
+    "created_at":"17"
+}]
